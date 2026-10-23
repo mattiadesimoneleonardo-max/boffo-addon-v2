@@ -1,11 +1,11 @@
 plugins {
-    alias(libs.plugins.fabric.loom)
+    id("fabric-loom") version "1.14-SNAPSHOT"
 }
 
 base {
-    archivesName = properties["archives_base_name"] as String
-    version = libs.versions.mod.version.get()
-    group = properties["maven_group"] as String
+    archivesName = "boffo-addon"
+    version = "1.1.0"
+    group = "com.boffo"
 }
 
 repositories {
@@ -14,17 +14,17 @@ repositories {
 }
 
 dependencies {
-    minecraft(libs.minecraft)
-    mappings(variantOf(libs.yarn) { classifier("v2") })
-    modImplementation(libs.fabric.loader)
-    modImplementation(libs.meteor.client)
+    minecraft("com.mojang:minecraft:1.21.11")
+    mappings("net.fabricmc:yarn:1.21.11+build.3:v2")
+    modImplementation("net.fabricmc:fabric-loader:0.18.2")
+    modImplementation("meteordevelopment:meteor-client:1.21.11-SNAPSHOT")
 }
 
 tasks {
     processResources {
         val props = mapOf(
             "version" to project.version,
-            "mc_version" to libs.versions.minecraft.get()
+            "mc_version" to "1.21.11"
         )
         inputs.properties(props)
         filteringCharset = "UTF-8"
